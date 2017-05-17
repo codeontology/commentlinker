@@ -1,0 +1,2 @@
+#! /bin/bash
+java -cp target/comment-entity-linker-1.0-SNAPSHOT-jar-with-dependencies.jar -d64 -Xms1G -Xmx4G org.codeontology.entitylinking.Main $@
