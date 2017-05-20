@@ -3,6 +3,7 @@ package org.codeontology.entitylinking;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +14,10 @@ public class DBpediaMatcher {
 
     public List<String> matchAll(List<String> titles) {
         return titles.stream()
+            .map(StringEscapeUtils::unescapeHtml4)
             .map(s -> s.replaceAll(" ", "_"))
             .filter(this::isDBpediaResource)
+            .map(s -> s.replaceAll(",|!|\"|\\?|:", ""))
             .map(s -> DBPEDIA_RESOURCE + s)
             .collect(Collectors.toList());
     }

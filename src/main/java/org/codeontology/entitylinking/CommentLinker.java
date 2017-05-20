@@ -5,6 +5,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
 
+import java.io.File;
 import java.util.List;
 
 public class CommentLinker {
@@ -32,7 +33,9 @@ public class CommentLinker {
         model.read(path);
 
         annotations = ModelFactory.createDefaultModel();
-        annotations.read("annotations.nt");
+        if (new File(RDFLogger.OUTPUT_PATH).exists()) {
+            annotations.read(RDFLogger.OUTPUT_PATH);
+        }
     }
 
     public void linkComments() {

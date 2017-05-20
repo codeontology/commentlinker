@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 
 public class RDFLogger {
 
-    private String outputFile;
+    public static final String OUTPUT_PATH = "annotations.nt";
     private int counter;
     private static RDFLogger instance;
     private Model model;
@@ -18,7 +18,6 @@ public class RDFLogger {
 
     private RDFLogger() {
         model = ModelFactory.createDefaultModel();
-        outputFile = "annotations.nt";
         counter = 0;
     }
 
@@ -30,10 +29,10 @@ public class RDFLogger {
     }
 
     public void writeRDF() {
-        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile, true)))) {
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(OUTPUT_PATH, true)))) {
             model.write(writer, "N-TRIPLE");
         } catch (IOException e) {
-            System.out.println("Cannot write " + outputFile + ".");
+            System.out.println("Cannot write " + OUTPUT_PATH + ".");
             System.exit(-1);
         }
     }
